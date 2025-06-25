@@ -1,0 +1,562 @@
+// locales/en.json - English localization
+{
+  "meta": {
+    "description": "Save, organize, and share your social media moments with AI-powered content management across 11 platforms.",
+    "keywords": "social media, content management, AI, Instagram, Facebook, YouTube, TikTok, contacts, multilingual"
+  },
+  "nav": {
+    "help": "Help",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "contacts": "Contacts",
+    "social_accounts": "Social Accounts",
+    "content": "Content",
+    "groups": "Groups"
+  },
+  "footer": {
+    "terms": "Terms of Trade",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title": "Save Your Social Media Moments",
+    "subtitle": "Organize, analyze, and share content from 11 social platforms with AI-powered insights and smart contact management.",
+    "start_free_trial": "Start Free Trial",
+    "learn_more": "Learn More",
+    "platforms": "Platforms",
+    "powered": "Powered",
+    "days_free": "Days Free"
+  },
+  "features": {
+    "title": "Everything You Need to Manage Your Digital Life",
+    "subtitle": "Powerful features designed to help you organize, analyze, and share your social media content effortlessly.",
+    "social_integration": {
+      "title": "11 Platform Integration",
+      "description": "Connect Facebook, Instagram, YouTube, TikTok, Twitter, WhatsApp, Telegram, and more to centralize your content."
+    },
+    "ai_processing": {
+      "title": "AI-Powered Analysis",
+      "description": "Automatic content summarization, sentiment analysis, transcription, and smart tagging using advanced AI technology."
+    },
+    "contact_management": {
+      "title": "Smart Contact Management",
+      "description": "Apple iPhone-compatible contacts with relationships, groups, and seamless sharing capabilities."
+    },
+    "smart_search": {
+      "title": "Intelligent Search",
+      "description": "Find content instantly with advanced filters, tags, location-based search, and full-text search capabilities."
+    },
+    "security": {
+      "title": "Enterprise Security",
+      "description": "End-to-end encryption, 2FA, device fingerprinting, and GDPR compliance for complete data protection."
+    },
+    "multilingual": {
+      "title": "Global Language Support",
+      "description": "Available in English, German, French, Italian, and Spanish with RTL support for future expansion."
+    }
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Start with a free trial, then upgrade to unlock unlimited features and AI-powered insights.",
+    "trial": {
+      "title": "Free Trial",
+      "price": "Free",
+      "duration": "7 days",
+      "features": {
+        "1": "Connect up to 3 social accounts",
+        "2": "50 AI-powered content analyses",
+        "3": "Basic contact management"
+      },
+      "cta": "Start Free Trial"
+    },
+    "basic": {
+      "title": "Basic Plan",
+      "price": "$9.99",
+      "billing": "per month",
+      "badge": "Most Popular",
+      "features": {
+        "1": "Connect all 11 social platforms",
+        "2": "Unlimited AI content analysis",
+        "3": "Advanced contact management",
+        "4": "Smart search and filtering"
+      },
+      "cta": "Choose Basic"
+    },
+    "pro": {
+      "title": "Pro Plan",
+      "price": "$19.99",
+      "billing": "per month",
+      "features": {
+        "1": "Everything in Basic",
+        "2": "Advanced AI insights",
+        "3": "Bulk content operations",
+        "4": "Priority support",
+        "5": "API access"
+      },
+      "cta": "Choose Pro"
+    }
+  },
+  "cta": {
+    "title": "Ready to Organize Your Digital Life?",
+    "subtitle": "Join thousands of users who are already saving time and staying organized with DaySave.",
+    "button": "Get Started Free"
+  },
+  "auth": {
+    "login": {
+      "subtitle": "Welcome back! Please sign in to your account.",
+      "google": "Continue with Google",
+      "apple": "Continue with Apple",
+      "microsoft": "Continue with Microsoft",
+      "button": "Sign In",
+      "no_account": "Don't have an account?",
+      "sign_up_link": "Sign up here"
+    },
+    "register": {
+      "subtitle": "Create your account and start your free trial today.",
+      "google": "Sign up with Google",
+      "apple": "Sign up with Apple",
+      "microsoft": "Sign up with Microsoft",
+      "button": "Create Account",
+      "have_account": "Already have an account?",
+      "sign_in_link": "Sign in here"
+    },
+    "or": "or",
+    "email": "Email address",
+    "password": "Password",
+    "username": "Username",
+    "confirm_password": "Confirm password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "password_requirements": "Password must be at least 8 characters with uppercase, lowercase, number, and special character.",
+    "agree_to": "I agree to the",
+    "terms": "Terms of Trade",
+    "and": "and",
+    "privacy": "Privacy Policy",
+    "errors": {
+      "validation_failed": "Please check your input and try again.",
+      "user_exists": "An account with this email or username already exists.",
+      "invalid_credentials": "Invalid email or password.",
+      "login_failed": "Login failed. Please try again.",
+      "server_error": "Server error. Please try again later.",
+      "oauth_failed": "OAuth authentication failed. Please try again."
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "subtitle": "Here's what's happening with your social media content today.",
+    "add_content": "Add Content",
+    "connect_account": "Connect Account",
+    "stats": {
+      "connected_accounts": "Connected Accounts",
+      "total_content": "Total Content",
+      "contacts": "Contacts",
+      "shares": "Shares"
+    },
+    "social_accounts": {
+      "title": "Social Accounts",
+      "empty": "No social accounts connected yet",
+      "connect": "Connect Account"
+    },
+    "recent_content": {
+      "title": "Recent Content",
+      "empty": "No content added yet",
+      "add": "Add Content"
+    },
+    "quick_actions": {
+      "title": "Quick Actions",
+      "manage_contacts": "Manage Contacts",
+      "social_accounts": "Social Accounts",
+      "browse_content": "Browse Content",
+      "settings": "Settings"
+    }
+  },
+  "modals": {
+    "connect_account": {
+      "title": "Connect Social Account",
+      "subtitle": "Choose a platform to connect and start importing your content."
+    },
+    "add_content": {
+      "title": "Add Content",
+      "url": "URL",
+      "file": "File",
+      "url_placeholder": "https://example.com/post",
+      "url_label": "Social Media URL",
+      "comment_placeholder": "Add your thoughts or notes...",
+      "comment_label": "Comments (Optional)",
+      "file_drop": "Drop files here or click to browse",
+      "submit": "Add Content"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions or need help? We're here to assist you.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "privacy_notice": "Your privacy is protected",
+      "name_required": "Please enter your name",
+      "email_required": "Please enter a valid email address",
+      "subject_required": "Please enter a subject",
+      "message_required": "Please enter your message"
+    },
+    "info": {
+      "email": {
+        "title": "Email Support",
+        "description": "Send us an email anytime"
+      },
+      "hours": {
+        "title": "Response Time",
+        "description": "We respond within"
+      },
+      "support": {
+        "title": "Live Chat",
+        "description": "Chat with our support team",
+        "button": "Start Chat"
+      }
+    },
+    "messages": {
+      "message_sent": "Your message has been sent successfully! We'll get back to you soon.",
+      "validation_failed": "Please fill in all required fields correctly.",
+      "server_error": "Sorry, there was an error sending your message. Please try again."
+    }
+  },
+  "help": {
+    "title": "Help & Support",
+    "getting_started": "Getting Started",
+    "link_social_accounts": "How to link social accounts",
+    "add_contacts": "Managing your contacts",
+    "submit_content": "Adding and organizing content",
+    "support": "Support",
+    "contact_support": "Contact our support team",
+    "faq": "Frequently Asked Questions",
+    "tutorials": "Video tutorials"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "messages": {
+    "success": "Operation completed successfully!",
+    "error": "An error occurred. Please try again."
+  },
+  "contacts": {
+    "title": "Contacts",
+    "subtitle": "Manage your contacts and relationships",
+    "add_contact": "Add Contact",
+    "edit_contact": "Edit Contact",
+    "delete_contact": "Delete Contact",
+    "import_contacts": "Import Contacts",
+    "export_contacts": "Export Contacts",
+    "view_relationships": "View Relationships",
+    "empty": "No contacts found",
+    "fields": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "nickname": "Nickname",
+      "organization": "Organization",
+      "job_title": "Job Title",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "birthday": "Birthday",
+      "notes": "Notes"
+    },
+    "relationships": {
+      "father": "Father",
+      "mother": "Mother",
+      "child": "Child",
+      "spouse": "Spouse",
+      "sibling": "Sibling",
+      "friend": "Friend",
+      "colleague": "Colleague",
+      "partner": "Partner",
+      "work": "Work",
+      "custom": "Custom"
+    }
+  },
+  "terms": {
+    "title": "Terms of Trade",
+    "last_updated": "Last updated",
+    "sections": {
+      "acceptance": "Acceptance of Terms",
+      "description": "Service Description",
+      "accounts": "User Accounts",
+      "subscription": "Subscription and Payment",
+      "content": "Content and Data",
+      "privacy": "Privacy and Security",
+      "prohibited": "Prohibited Uses",
+      "termination": "Termination",
+      "liability": "Limitation of Liability",
+      "changes": "Changes to Terms"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "last_updated": "Last updated",
+    "sections": {
+      "introduction": "Introduction",
+      "collection": "Information We Collect",
+      "usage": "How We Use Your Information",
+      "sharing": "Information Sharing",
+      "security": "Data Security",
+      "retention": "Data Retention",
+      "rights": "Your Rights",
+      "cookies": "Cookies and Tracking",
+      "third_party": "Third-Party Services",
+      "changes": "Changes to Privacy Policy",
+      "contact": "Contact Information"
+    }
+  }
+}
+
+// locales/de.json - German localization
+{
+  "meta": {
+    "description": "Speichern, organisieren und teilen Sie Ihre Social-Media-Momente mit KI-gestützter Inhaltsverwaltung auf 11 Plattformen.",
+    "keywords": "Social Media, Content-Management, KI, Instagram, Facebook, YouTube, TikTok, Kontakte, mehrsprachig"
+  },
+  "nav": {
+    "help": "Hilfe",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "dashboard": "Dashboard",
+    "contacts": "Kontakte",
+    "social_accounts": "Social-Media-Konten",
+    "content": "Inhalte",
+    "groups": "Gruppen"
+  },
+  "footer": {
+    "terms": "Geschäftsbedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "title": "Speichern Sie Ihre Social-Media-Momente",
+    "subtitle": "Organisieren, analysieren und teilen Sie Inhalte von 11 sozialen Plattformen mit KI-gestützten Erkenntnissen und intelligenter Kontaktverwaltung.",
+    "start_free_trial": "Kostenlose Testversion starten",
+    "learn_more": "Mehr erfahren",
+    "platforms": "Plattformen",
+    "powered": "Angetrieben",
+    "days_free": "Tage kostenlos"
+  },
+  "features": {
+    "title": "Alles was Sie brauchen, um Ihr digitales Leben zu verwalten",
+    "subtitle": "Leistungsstarke Funktionen, die Ihnen helfen, Ihre Social-Media-Inhalte mühelos zu organisieren, zu analysieren und zu teilen.",
+    "social_integration": {
+      "title": "11 Plattform-Integration",
+      "description": "Verbinden Sie Facebook, Instagram, YouTube, TikTok, Twitter, WhatsApp, Telegram und mehr, um Ihre Inhalte zu zentralisieren."
+    },
+    "ai_processing": {
+      "title": "KI-gestützte Analyse",
+      "description": "Automatische Inhaltszusammenfassung, Sentiment-Analyse, Transkription und intelligente Verschlagwortung mit fortschrittlicher KI-Technologie."
+    },
+    "contact_management": {
+      "title": "Intelligente Kontaktverwaltung",
+      "description": "Apple iPhone-kompatible Kontakte mit Beziehungen, Gruppen und nahtlosen Sharing-Funktionen."
+    },
+    "smart_search": {
+      "title": "Intelligente Suche",
+      "description": "Finden Sie Inhalte sofort mit erweiterten Filtern, Tags, standortbasierter Suche und Volltextsuche."
+    },
+    "security": {
+      "title": "Enterprise-Sicherheit",
+      "description": "End-to-End-Verschlüsselung, 2FA, Geräte-Fingerprinting und DSGVO-Konformität für vollständigen Datenschutz."
+    },
+    "multilingual": {
+      "title": "Globale Sprachunterstützung",
+      "description": "Verfügbar in Englisch, Deutsch, Französisch, Italienisch und Spanisch mit RTL-Unterstützung für zukünftige Erweiterungen."
+    }
+  },
+  "pricing": {
+    "title": "Wählen Sie Ihren Plan",
+    "subtitle": "Beginnen Sie mit einer kostenlosen Testversion und upgraden Sie dann, um unbegrenzte Funktionen und KI-gestützte Erkenntnisse freizuschalten.",
+    "trial": {
+      "title": "Kostenlose Testversion",
+      "price": "Kostenlos",
+      "duration": "7 Tage",
+      "features": {
+        "1": "Bis zu 3 Social-Media-Konten verbinden",
+        "2": "50 KI-gestützte Inhaltsanalysen",
+        "3": "Grundlegende Kontaktverwaltung"
+      },
+      "cta": "Kostenlose Testversion starten"
+    },
+    "basic": {
+      "title": "Basic Plan",
+      "price": "9,99€",
+      "billing": "pro Monat",
+      "badge": "Am beliebtesten",
+      "features": {
+        "1": "Alle 11 sozialen Plattformen verbinden",
+        "2": "Unbegrenzte KI-Inhaltsanalyse",
+        "3": "Erweiterte Kontaktverwaltung",
+        "4": "Intelligente Suche und Filterung"
+      },
+      "cta": "Basic wählen"
+    },
+    "pro": {
+      "title": "Pro Plan",
+      "price": "19,99€",
+      "billing": "pro Monat",
+      "features": {
+        "1": "Alles in Basic",
+        "2": "Erweiterte KI-Erkenntnisse",
+        "3": "Bulk-Inhaltsoperationen",
+        "4": "Prioritätssupport",
+        "5": "API-Zugang"
+      },
+      "cta": "Pro wählen"
+    }
+  },
+  "cta": {
+    "title": "Bereit, Ihr digitales Leben zu organisieren?",
+    "subtitle": "Schließen Sie sich Tausenden von Benutzern an, die bereits Zeit sparen und mit DaySave organisiert bleiben.",
+    "button": "Kostenlos loslegen"
+  },
+  "auth": {
+    "login": {
+      "subtitle": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
+      "google": "Mit Google fortfahren",
+      "apple": "Mit Apple fortfahren",
+      "microsoft": "Mit Microsoft fortfahren",
+      "button": "Anmelden",
+      "no_account": "Noch kein Konto?",
+      "sign_up_link": "Hier registrieren"
+    },
+    "register": {
+      "subtitle": "Erstellen Sie Ihr Konto und starten Sie noch heute Ihre kostenlose Testversion.",
+      "google": "Mit Google registrieren",
+      "apple": "Mit Apple registrieren",
+      "microsoft": "Mit Microsoft registrieren",
+      "button": "Konto erstellen",
+      "have_account": "Bereits ein Konto?",
+      "sign_in_link": "Hier anmelden"
+    },
+    "or": "oder",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "username": "Benutzername",
+    "confirm_password": "Passwort bestätigen",
+    "remember_me": "Angemeldet bleiben",
+    "forgot_password": "Passwort vergessen?",
+    "password_requirements": "Passwort muss mindestens 8 Zeichen mit Groß-, Kleinbuchstaben, Zahl und Sonderzeichen enthalten.",
+    "agree_to": "Ich stimme den",
+    "terms": "Geschäftsbedingungen",
+    "and": "und",
+    "privacy": "Datenschutzrichtlinie",
+    "errors": {
+      "validation_failed": "Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
+      "user_exists": "Ein Konto mit dieser E-Mail oder diesem Benutzernamen existiert bereits.",
+      "invalid_credentials": "Ungültige E-Mail oder Passwort.",
+      "login_failed": "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "server_error": "Serverfehler. Bitte versuchen Sie es später erneut.",
+      "oauth_failed": "OAuth-Authentifizierung fehlgeschlagen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "dashboard": {
+    "welcome": "Willkommen zurück",
+    "subtitle": "Hier ist, was heute mit Ihren Social-Media-Inhalten passiert.",
+    "add_content": "Inhalt hinzufügen",
+    "connect_account": "Konto verbinden",
+    "stats": {
+      "connected_accounts": "Verbundene Konten",
+      "total_content": "Gesamter Inhalt",
+      "contacts": "Kontakte",
+      "shares": "Geteilte Inhalte"
+    },
+    "social_accounts": {
+      "title": "Social-Media-Konten",
+      "empty": "Noch keine Social-Media-Konten verbunden",
+      "connect": "Konto verbinden"
+    },
+    "recent_content": {
+      "title": "Neueste Inhalte",
+      "empty": "Noch keine Inhalte hinzugefügt",
+      "add": "Inhalt hinzufügen"
+    },
+    "quick_actions": {
+      "title": "Schnellaktionen",
+      "manage_contacts": "Kontakte verwalten",
+      "social_accounts": "Social-Media-Konten",
+      "browse_content": "Inhalte durchsuchen",
+      "settings": "Einstellungen"
+    }
+  },
+  "modals": {
+    "connect_account": {
+      "title": "Social-Media-Konto verbinden",
+      "subtitle": "Wählen Sie eine Plattform zum Verbinden und beginnen Sie mit dem Import Ihrer Inhalte."
+    },
+    "add_content": {
+      "title": "Inhalt hinzufügen",
+      "url": "URL",
+      "file": "Datei",
+      "url_placeholder": "https://beispiel.com/post",
+      "url_label": "Social-Media-URL",
+      "comment_placeholder": "Fügen Sie Ihre Gedanken oder Notizen hinzu...",
+      "comment_label": "Kommentare (Optional)",
+      "file_drop": "Dateien hier ablegen oder klicken zum Durchsuchen",
+      "submit": "Inhalt hinzufügen"
+    }
+  },
+  "contact": {
+    "title": "Kontakt aufnehmen",
+    "subtitle": "Haben Sie Fragen oder benötigen Hilfe? Wir sind hier, um Ihnen zu helfen.",
+    "form": {
+      "name": "Vollständiger Name",
+      "email": "E-Mail-Adresse",
+      "subject": "Betreff",
+      "message": "Nachricht",
+      "submit": "Nachricht senden",
+      "privacy_notice": "Ihr Datenschutz ist geschützt",
+      "name_required": "Bitte geben Sie Ihren Namen ein",
+      "email_required": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "subject_required": "Bitte geben Sie einen Betreff ein",
+      "message_required": "Bitte geben Sie Ihre Nachricht ein"
+    },
+    "info": {
+      "email": {
+        "title": "E-Mail-Support",
+        "description": "Senden Sie uns jederzeit eine E-Mail"
+      },
+      "hours": {
+        "title": "Antwortzeit",
+        "description": "Wir antworten innerhalb von"
+      },
+      "support": {
+        "title": "Live-Chat",
+        "description": "Chatten Sie mit unserem Support-Team",
+        "button": "Chat starten"
+      }
+    },
+    "messages": {
+      "message_sent": "Ihre Nachricht wurde erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.",
+      "validation_failed": "Bitte füllen Sie alle Pflichtfelder korrekt aus.",
+      "server_error": "Entschuldigung, beim Senden Ihrer Nachricht ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    }
+  },
+  "help": {
+    "title": "Hilfe & Support",
+    "getting_started": "Erste Schritte",
+    "link_social_accounts": "Wie man Social-Media-Konten verknüpft",
+    "add_contacts": "Kontakte verwalten",
+    "submit_content": "Inhalte hinzufügen und organisieren",
+    "support": "Support",
+    "contact_support": "Kontaktieren Sie unser Support-Team",
+    "faq": "Häufig gestellte Fragen",
+    "tutorials": "Video-Tutori

@@ -1,0 +1,796 @@
+<!-- views/layout.ejs - Main layout template -->
+<!DOCTYPE html>
+<html lang="<%= res.getLocale() %>" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= title %></title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="<%= __('meta.description') %>">
+    <meta name="keywords" content="<%= __('meta.keywords') %>">
+    <meta name="author" content="DaySave">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:description" content="<%= __('meta.description') %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://daysave.app">
+    <meta property="og:image" content="/images/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= title %>">
+    <meta name="twitter:description" content="<%= __('meta.description') %>">
+    <meta name="twitter:image" content="/images/twitter-card.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2596be;
+            --secondary-color: #a1d8c9;
+            --accent-color: #fbda6a;
+            --success-color: #d8e2a8;
+            --warning-color: #f0e28b;
+            --info-color: #87c0a9;
+            --danger-color: #fbce3c;
+            --dark-color: #309b9c;
+            --light-color: #bfcc8d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-color);
+            border-color: var(--dark-color);
+        }
+        
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .navbar-floating {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1030;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .footer-floating {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1020;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/images/hero-pattern.svg') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        .device-mockup {
+            position: relative;
+            max-width: 300px;
+        }
+        
+        .device-mockup img {
+            width: 100%;
+            height: auto;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-content-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+        
+        .features-section {
+            padding: 100px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-floating {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+            
+            .hero-section {
+                padding-top: 100px;
+            }
+        }
+        
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+        
+        .social-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .social-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        .google-btn {
+            background-color: #4285f4;
+        }
+        
+        .apple-btn {
+            background-color: #000;
+        }
+        
+        .microsoft-btn {
+            background-color: #0078d4;
+        }
+    </style>
+    
+    <% if (typeof customCSS !== 'undefined') { %>
+        <style><%= customCSS %></style>
+    <% } %>
+</head>
+<body>
+    <!-- Floating Navigation -->
+    <% if (user) { %>
+        <nav class="navbar navbar-expand-lg navbar-floating">
+            <div class="container-fluid">
+                <!-- Menu Toggle -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainMenu">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                
+                <!-- Brand -->
+                <a class="navbar-brand fw-bold text-primary" href="/dashboard">
+                    <i class="bi bi-calendar-heart me-2"></i>DaySave
+                </a>
+                
+                <!-- Right side buttons -->
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#helpModal">
+                        <i class="bi bi-question-circle me-1"></i><%= __('nav.help') %>
+                    </button>
+                    
+                    <div class="dropdown">
+                        <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <% if (user.profile_image) { %>
+                                <img src="<%= user.profile_image %>" alt="Profile" width="24" height="24" class="rounded-circle me-1">
+                            <% } else { %>
+                                <i class="bi bi-person-circle me-1"></i>
+                            <% } %>
+                            <%= user.username || user.email.split('@')[0] %>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i><%= __('nav.profile') %></a></li>
+                            <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear me-2"></i><%= __('nav.settings') %></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right me-2"></i><%= __('nav.logout') %></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Offcanvas Menu -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="mainMenu">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title text-primary fw-bold">
+                    <i class="bi bi-calendar-heart me-2"></i>DaySave
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="bi bi-house me-2"></i><%= __('nav.dashboard') %>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts">
+                            <i class="bi bi-person-lines-fill me-2"></i><%= __('nav.contacts') %>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/social">
+                            <i class="bi bi-share me-2"></i><%= __('nav.social_accounts') %>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/content">
+                            <i class="bi bi-collection me-2"></i><%= __('nav.content') %>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/groups">
+                            <i class="bi bi-tags me-2"></i><%= __('nav.groups') %>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Main Content -->
+    <main class="<% if (user) { %>pt-5 mt-4<% } %>">
+        <%- body %>
+    </main>
+
+    <!-- Floating Footer -->
+    <% if (!user) { %>
+        <footer class="footer-floating">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center gap-4">
+                            <a href="/terms" class="text-decoration-none text-muted">
+                                <small><%= __('footer.terms') %></small>
+                            </a>
+                            <a href="/privacy" class="text-decoration-none text-muted">
+                                <small><%= __('footer.privacy') %></small>
+                            </a>
+                            <a href="/contact" class="text-decoration-none text-muted">
+                                <small><%= __('footer.contact') %></small>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <div class="d-flex align-items-center justify-content-md-end gap-3">
+                            <!-- Language Selector -->
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <i class="bi bi-globe me-1"></i>
+                                    <%= res.getLocale().toUpperCase() %>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="?lang=en">🇺🇸 English</a></li>
+                                    <li><a class="dropdown-item" href="?lang=de">🇩🇪 Deutsch</a></li>
+                                    <li><a class="dropdown-item" href="?lang=fr">🇫🇷 Français</a></li>
+                                    <li><a class="dropdown-item" href="?lang=it">🇮🇹 Italiano</a></li>
+                                    <li><a class="dropdown-item" href="?lang=es">🇪🇸 Español</a></li>
+                                </ul>
+                            </div>
+                            <small class="text-muted">© 2025 DaySave</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <% } %>
+
+    <!-- Help Modal -->
+    <% if (user) { %>
+        <div class="modal fade" id="helpModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><%= __('help.title') %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><%= __('help.getting_started') %></h6>
+                                <ul class="list-unstyled">
+                                    <li><a href="#" class="text-decoration-none"><%= __('help.link_social_accounts') %></a></li>
+                                    <li><a href="#" class="text-decoration-none"><%= __('help.add_contacts') %></a></li>
+                                    <li><a href="#" class="text-decoration-none"><%= __('help.submit_content') %></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><%= __('help.support') %></h6>
+                                <ul class="list-unstyled">
+                                    <li><a href="/contact" class="text-decoration-none"><%= __('help.contact_support') %></a></li>
+                                    <li><a href="#" class="text-decoration-none"><%= __('help.faq') %></a></li>
+                                    <li><a href="#" class="text-decoration-none"><%= __('help.tutorials') %></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Toast notifications
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer') || createToastContainer();
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-bg-${type} border-0`;
+            toast.setAttribute('role', 'alert');
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            toastContainer.appendChild(toast);
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            toast.addEventListener('hidden.bs.toast', () => {
+                toast.remove();
+            });
+        }
+        
+        function createToastContainer() {
+            const container = document.createElement('div');
+            container.id = 'toastContainer';
+            container.className = 'toast-container position-fixed top-0 end-0 p-3';
+            container.style.zIndex = '1060';
+            document.body.appendChild(container);
+            return container;
+        }
+        
+        // URL parameters handling
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success')) {
+            showToast('<%= __("messages.success") %>', 'success');
+        }
+        if (urlParams.get('error')) {
+            showToast('<%= __("messages.error") %>', 'danger');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Auto-hide alerts after 5 seconds
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert:not(.alert-persistent)');
+            alerts.forEach(alert => {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+    
+    <% if (typeof customJS !== 'undefined') { %>
+        <script><%= customJS %></script>
+    <% } %>
+</body>
+</html>
+
+<!-- views/index.ejs - Landing Page -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <%= __('hero.title') %>
+                    </h1>
+                    <p class="lead mb-4">
+                        <%= __('hero.subtitle') %>
+                    </p>
+                    <div class="d-flex gap-3 mb-5">
+                        <a href="/register" class="btn btn-light btn-lg px-4 py-3 rounded-pill">
+                            <i class="bi bi-star me-2"></i>
+                            <%= __('hero.start_free_trial') %>
+                        </a>
+                        <a href="#features" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+                            <%= __('hero.learn_more') %>
+                        </a>
+                    </div>
+                    
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="h3 fw-bold">11</div>
+                            <small><%= __('hero.platforms') %></small>
+                        </div>
+                        <div class="col-4">
+                            <div class="h3 fw-bold">AI</div>
+                            <small><%= __('hero.powered') %></small>
+                        </div>
+                        <div class="col-4">
+                            <div class="h3 fw-bold">7</div>
+                            <small><%= __('hero.days_free') %></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="row justify-content-center">
+                    <!-- Desktop Mockup -->
+                    <div class="col-md-8 mb-4">
+                        <div class="device-mockup">
+                            <div class="bg-white rounded-4 p-4 shadow-lg">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-danger rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                                    <div class="bg-warning rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                                    <div class="bg-success rounded-circle" style="width: 12px; height: 12px;"></div>
+                                </div>
+                                
+                                <!-- Social Content Preview -->
+                                <div class="social-content-preview">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="bg-primary rounded-circle me-2" style="width: 32px; height: 32px;"></div>
+                                        <div>
+                                            <div class="fw-semibold small">Instagram Post</div>
+                                            <div class="text-muted" style="font-size: 0.75rem;">2 hours ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-light rounded p-2 mb-2" style="height: 80px;">
+                                        <div class="text-muted small">📸 Amazing sunset at the beach...</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge bg-primary">travel</span>
+                                        <span class="badge bg-secondary">sunset</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="social-content-preview">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="bg-info rounded-circle me-2" style="width: 32px; height: 32px;"></div>
+                                        <div>
+                                            <div class="fw-semibold small">YouTube Video</div>
+                                            <div class="text-muted" style="font-size: 0.75rem;">1 day ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-light rounded p-2 mb-2" style="height: 60px;">
+                                        <div class="text-muted small">🎥 "How to cook pasta perfectly"</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge bg-warning">cooking</span>
+                                        <span class="badge bg-success">tutorial</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Mockup -->
+                    <div class="col-md-4">
+                        <div class="device-mockup">
+                            <div class="bg-dark rounded-4 p-1">
+                                <div class="bg-white rounded-4 p-3" style="height: 400px;">
+                                    <div class="text-center mb-3">
+                                        <div class="bg-dark rounded-pill mx-auto" style="width: 60px; height: 4px;"></div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="mb-0 text-primary">DaySave</h6>
+                                        <div class="d-flex gap-1">
+                                            <div class="bg-success rounded-circle" style="width: 8px; height: 8px;"></div>
+                                            <div class="bg-success rounded-circle" style="width: 8px; height: 8px;"></div>
+                                            <div class="bg-success rounded-circle" style="width: 8px; height: 8px;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="d-flex gap-2 mb-2">
+                                            <div class="bg-primary rounded" style="width: 30px; height: 30px;"></div>
+                                            <div class="bg-danger rounded" style="width: 30px; height: 30px;"></div>
+                                            <div class="bg-success rounded" style="width: 30px; height: 30px;"></div>
+                                            <div class="bg-warning rounded" style="width: 30px; height: 30px;"></div>
+                                        </div>
+                                        <div class="text-muted small">4 connected accounts</div>
+                                    </div>
+                                    
+                                    <div class="bg-light rounded p-2 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary rounded-circle me-2" style="width: 20px; height: 20px;"></div>
+                                            <div class="flex-grow-1">
+                                                <div class="small fw-semibold">New Post</div>
+                                                <div style="font-size: 0.7rem;" class="text-muted">Twitter • 5m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-light rounded p-2 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-danger rounded-circle me-2" style="width: 20px; height: 20px;"></div>
+                                            <div class="flex-grow-1">
+                                                <div class="small fw-semibold">Story Update</div>
+                                                <div style="font-size: 0.7rem;" class="text-muted">Instagram • 12m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="text-center mt-4">
+                                        <div class="btn btn-primary btn-sm rounded-pill px-3">+ Add Content</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section class="features-section bg-light" id="features">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4"><%= __('features.title') %></h2>
+                <p class="lead text-muted"><%= __('features.subtitle') %></p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center">
+                    <div class="feature-icon bg-primary text-white mx-auto">
+                        <i class="bi bi-share"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3"><%= __('features.social_integration.title') %></h4>
+                    <p class="text-muted"><%= __('features.social_integration.description') %></p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center">
+                    <div class="feature-icon bg-success text-white mx-auto">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3"><%= __('features.ai_processing.title') %></h4>
+                    <p class="text-muted"><%= __('features.ai_processing.description') %></p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center">
+                    <div class="feature-icon bg-warning text-white mx-auto">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3"><%= __('features.contact_management.title') %></h4>
+                    <p class="text-muted"><%= __('features.contact_management.description') %></p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center">
+                    <div class="feature-icon bg-info text-white mx-auto">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3"><%= __('features.smart_search.title') %></h4>
+                    <p class="text-muted"><%= __('features.smart_search.description') %></p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center">
+                    <div class="feature-icon bg-danger text-white mx-auto">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3"><%= __('features.security.title') %></h4>
+                    <p class="text-muted"><%= __('features.security.description') %></p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center">
+                    <div class="feature-icon bg-secondary text-white mx-auto">
+                        <i class="bi bi-globe"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3"><%= __('features.multilingual.title') %></h4>
+                    <p class="text-muted"><%= __('features.multilingual.description') %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4"><%= __('pricing.title') %></h2>
+                <p class="lead text-muted"><%= __('pricing.subtitle') %></p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card pricing-card">
+                    <div class="card-body text-center p-5">
+                        <h5 class="card-title fw-bold"><%= __('pricing.trial.title') %></h5>
+                        <div class="display-4 fw-bold text-primary my-4">
+                            <%= __('pricing.trial.price') %>
+                        </div>
+                        <p class="text-muted"><%= __('pricing.trial.duration') %></p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.trial.features.1') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.trial.features.2') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.trial.features.3') %></li>
+                        </ul>
+                        <a href="/register" class="btn btn-primary btn-lg w-100 mt-4">
+                            <%= __('pricing.trial.cta') %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card pricing-card featured">
+                    <div class="card-body text-center p-5">
+                        <div class="badge bg-primary mb-3"><%= __('pricing.basic.badge') %></div>
+                        <h5 class="card-title fw-bold"><%= __('pricing.basic.title') %></h5>
+                        <div class="display-4 fw-bold text-primary my-4">
+                            <%= __('pricing.basic.price') %>
+                        </div>
+                        <p class="text-muted"><%= __('pricing.basic.billing') %></p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.basic.features.1') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.basic.features.2') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.basic.features.3') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.basic.features.4') %></li>
+                        </ul>
+                        <a href="/register" class="btn btn-primary btn-lg w-100 mt-4">
+                            <%= __('pricing.basic.cta') %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card pricing-card">
+                    <div class="card-body text-center p-5">
+                        <h5 class="card-title fw-bold"><%= __('pricing.pro.title') %></h5>
+                        <div class="display-4 fw-bold text-primary my-4">
+                            <%= __('pricing.pro.price') %>
+                        </div>
+                        <p class="text-muted"><%= __('pricing.pro.billing') %></p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.pro.features.1') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.pro.features.2') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.pro.features.3') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.pro.features.4') %></li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><%= __('pricing.pro.features.5') %></li>
+                        </ul>
+                        <a href="/register" class="btn btn-primary btn-lg w-100 mt-4">
+                            <%= __('pricing.pro.cta') %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-4"><%= __('cta.title') %></h2>
+                <p class="lead mb-4"><%= __('cta.subtitle') %></p>
+                <a href="/register" class="btn btn-light btn-lg px-5 py-3 rounded-pill">
+                    <i class="bi bi-star me-2"></i>
+                    <%= __('cta.button') %>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

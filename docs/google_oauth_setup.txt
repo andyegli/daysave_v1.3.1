@@ -1,0 +1,186 @@
+# Google OAuth Setup for DaySave
+
+## 🚀 Step-by-Step Guide to Get Your Google OAuth Credentials
+
+### Step 1: Access Google Cloud Console
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Sign in with your Google account
+
+### Step 2: Select Your Project
+1. Click the project dropdown at the top
+2. Select your **"daysave"** project
+3. If it doesn't exist, create a new project:
+   - Click "New Project"
+   - Name: **daysave**
+   - Click "Create"
+
+### Step 3: Enable Required APIs
+1. In the left sidebar, go to **"APIs & Services" > "Library"**
+2. Search for and enable these APIs:
+   - **Google+ API** (for basic profile access)
+   - **People API** (for user information)
+   - **Gmail API** (optional, if you want email access)
+
+### Step 4: Configure OAuth Consent Screen
+1. Go to **"APIs & Services" > "OAuth consent screen"**
+2. Choose **"External"** (unless you have Google Workspace)
+3. Fill out the required information:
+
+#### App Information:
+```
+App name: DaySave
+User support email: your-email@gmail.com
+Developer contact information: your-email@gmail.com
+```
+
+#### App Domain (for production):
+```
+Application home page: https://daysave.app
+Privacy policy link: https://daysave.app/privacy
+Terms of service link: https://daysave.app/terms
+```
+
+#### Authorized Domains:
+```
+daysave.app
+localhost (for development)
+```
+
+#### Scopes:
+Add these scopes:
+- `../auth/userinfo.email`
+- `../auth/userinfo.profile`
+- `openid`
+
+4. Click **"Save and Continue"**
+
+### Step 5: Create OAuth 2.0 Credentials
+1. Go to **"APIs & Services" > "Credentials"**
+2. Click **"+ Create Credentials"**
+3. Select **"OAuth 2.0 Client IDs"**
+4. Choose **"Web application"**
+
+#### Configure the OAuth Client:
+```
+Name: DaySave Web App
+
+Authorized JavaScript origins:
+- http://localhost:3000 (for development)
+- https://daysave.app (for production)
+
+Authorized redirect URIs:
+- http://localhost:3000/auth/google/callback (for development)
+- https://daysave.app/auth/google/callback (for production)
+```
+
+5. Click **"Create"**
+
+### Step 6: Get Your Credentials
+After creating, you'll see a popup with:
+- **Client ID**: Something like `123456789-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com`
+- **Client Secret**: Something like `GOCSPX-abcdefghijklmnopqrstuvwxyz`
+
+### Step 7: Add to Your .env File
+```env
+# Google OAuth Configuration
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+## 🔧 Development vs Production Setup
+
+### For Development (localhost:3000):
+```env
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+```
+
+### For Production (daysave.app):
+```env
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_CALLBACK_URL=https://daysave.app/auth/google/callback
+```
+
+## 🧪 Testing OAuth Integration
+
+### Test URLs:
+- **Login**: `http://localhost:3000/auth/google`
+- **Callback**: `http://localhost:3000/auth/google/callback`
+
+### Expected Flow:
+1. User clicks "Login with Google"
+2. Redirects to Google OAuth
+3. User grants permissions
+4. Google redirects back to your callback URL
+5. Your app receives user profile data
+
+## 📋 Additional OAuth Providers
+
+### Apple OAuth Setup:
+1. Go to [Apple Developer Console](https://developer.apple.com/)
+2. Create "Sign in with Apple" service
+3. Configure domains and redirect URLs
+
+### Microsoft OAuth Setup:
+1. Go to [Azure Portal](https://portal.azure.com/)
+2. Navigate to "Azure Active Directory" > "App registrations"
+3. Create new registration for DaySave
+
+## 🔐 Security Best Practices
+
+### Client Secret Security:
+- ✅ Store in environment variables only
+- ✅ Never commit to version control
+- ✅ Use different credentials for development/production
+- ✅ Rotate secrets regularly
+
+### Redirect URI Security:
+- ✅ Only add trusted domains
+- ✅ Use HTTPS in production
+- ✅ Validate redirect URIs in your app
+
+## 🐛 Common Issues & Solutions
+
+### "Invalid Client" Error:
+- ✅ Check client ID is correct
+- ✅ Verify redirect URI matches exactly
+- ✅ Ensure OAuth consent screen is configured
+
+### "Access Blocked" Error:
+- ✅ Add your email as test user in OAuth consent screen
+- ✅ Publish your app (or keep in testing mode for development)
+
+### "Redirect URI Mismatch":
+- ✅ Ensure redirect URI in Google Console matches your app exactly
+- ✅ Check for trailing slashes and HTTP vs HTTPS
+
+## 🚀 Quick Test
+
+Once configured, test with this simple route in your app:
+
+```javascript
+// Test route - add to your app.js
+app.get('/test-google-auth', (req, res) => {
+    res.send(`
+        <h1>Test Google OAuth</h1>
+        <a href="/auth/google">Login with Google</a>
+        <br><br>
+        <p>Client ID: ${process.env.GOOGLE_CLIENT_ID ? 'Configured ✅' : 'Missing ❌'}</p>
+        <p>Client Secret: ${process.env.GOOGLE_CLIENT_SECRET ? 'Configured ✅' : 'Missing ❌'}</p>
+    `);
+});
+```
+
+Visit `http://localhost:3000/test-google-auth` to verify your setup.
+
+## 📞 Need Help?
+
+If you encounter issues:
+1. Check Google Cloud Console error logs
+2. Verify all URLs match exactly (including http/https)
+3. Ensure your project billing is enabled (required for some APIs)
+4. Check OAuth consent screen status
+
+Your DaySave Google OAuth integration will be ready to go! 🎉
