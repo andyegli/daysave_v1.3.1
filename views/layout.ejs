@@ -262,9 +262,25 @@
                 <!-- Right side buttons -->
                 <div class="d-flex align-items-center gap-3">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#helpModal">
-                        <i class="bi bi-question-circle me-1"></i><%= __('nav.help') %>
+                        <i class="bi bi-question-circle me-1"></i><%= __('nav.help') %> 
                     </button>
-                    
+
+                    <!-- Language Selector (for logged-in users) -->
+                    <div class="dropdown d-none d-lg-block"> <%# Added d-none d-lg-block to hide on small screens and show on large %>
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="langDropdownNav" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe me-1"></i>
+                            <%= res.getLocale().toUpperCase() %>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdownNav">
+                            <li><a class="dropdown-item" href="?lang=en">🇺🇸 English</a></li>
+                            <li><a class="dropdown-item" href="?lang=de">🇩🇪 Deutsch</a></li>
+                            <li><a class="dropdown-item" href="?lang=fr">🇫🇷 Français</a></li>
+                            <li><a class="dropdown-item" href="?lang=it">🇮🇹 Italiano</a></li>
+                            <li><a class="dropdown-item" href="?lang=es">🇪🇸 Español</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- User Dropdown -->
                     <div class="dropdown">
                         <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <% if (user.profile_image) { %>
@@ -320,6 +336,22 @@
                             <i class="bi bi-tags me-2"></i><%= __('nav.groups') %>
                         </a>
                     </li>
+                    <!-- Language Selector in Offcanvas (for small screens) -->
+                    <li class="nav-item d-lg-none mt-3"> <%# Added d-lg-none to show only on small screens %>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle w-100 text-start" type="button" id="langDropdownOffcanvas" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-globe me-1"></i>
+                                <%= res.getLocale().toUpperCase() %>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="langDropdownOffcanvas">
+                                <li><a class="dropdown-item" href="?lang=en">🇺🇸 English</a></li>
+                                <li><a class="dropdown-item" href="?lang=de">🇩🇪 Deutsch</a></li>
+                                <li><a class="dropdown-item" href="?lang=fr">🇫🇷 Français</a></li>
+                                <li><a class="dropdown-item" href="?lang=it">🇮🇹 Italiano</a></li>
+                                <li><a class="dropdown-item" href="?lang=es">🇪🇸 Español</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -351,7 +383,7 @@
                     <div class="col-md-6 text-md-end">
                         <div class="d-flex align-items-center justify-content-md-end gap-3">
                             <!-- Language Selector -->
-                            <div class="dropdown">
+                            <div class="dropdown"> <%# This one is for non-logged-in users, so it's fine as is %>
                                 <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <i class="bi bi-globe me-1"></i>
                                     <%= res.getLocale().toUpperCase() %>
