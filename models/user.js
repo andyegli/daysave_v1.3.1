@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     oauth_provider: { type: DataTypes.STRING(50), allowNull: true },
     oauth_id: { type: DataTypes.STRING(255), allowNull: true },
     trial_expires_at: { type: DataTypes.DATE, allowNull: true }
+  }, {
+    timestamps: true,
+    createdAt: 'created_at',  // 👈 map snake_case to camelCase
+    updatedAt: 'updated_at',
+    tableName: 'Users'
   });
 
   User.associate = models => {
