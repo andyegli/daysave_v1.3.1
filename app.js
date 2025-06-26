@@ -18,35 +18,16 @@ const validator = require('express-validator');
 const { body, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
 const speakeasy = require('speakeasy');
 const qrcode = require('qrcode');
 const crypto = require('crypto');
 const fingerprintjs = require('fingerprintjs2');
+const relationRoutes = require('./routes/relations');
+const groupRoutes = require('./routes/groups');
 
 // Database setup
-const { Sequelize, DataTypes } = require('sequelize');
-
-// Add database configuration debug
-console.log('🔧 Sequelize Configuration:');
-console.log(`   Database: ${process.env.DB_NAME || 'daysave'}`);
-console.log(`   Host: ${process.env.DB_HOST || 'localhost'}`);
-console.log(`   Port: ${process.env.DB_PORT || 3306} (from env: ${process.env.DB_PORT})`);
-console.log(`   User: ${process.env.DB_USER || 'root'}`);
-console.log('');
-
-const sequelize = new Sequelize(process.env.DB_NAME || 'daysave', process.env.DB_USER || 'root', process.env.DB_PASSWORD || '', {
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT) || 3306, // 🔧 FIXED: Added missing port parameter
-  dialect: 'mysql',
-  logging: false,
-  pool: {
-    max: 10,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-});
+const db = require('./models');
+const { Op } = require('sequelize');
 
 // Initialize Express app
 const app = express();
@@ -144,218 +125,7 @@ const logger = winston.createLogger({
   ]
 });
 
-// Database Models
-const User = sequelize.define('User', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
-  },
-  username: {
-    type: DataTypes.STRING(50),
-    unique: true,
-    allowNull: true
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
-  },
-  password_hash: {
-    type: DataTypes.STRING(255),
-    allowNull: true
-  },
-  country: {
-    type: DataTypes.STRING(10),
-    allowNull: true
-  },
-  device_fingerprint: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  subscription_status: {
-    type: DataTypes.ENUM('trial', 'basic', 'pro', 'expired'),
-    defaultValue: 'trial'
-  },
-  language: {
-    type: DataTypes.STRING(5),
-    defaultValue: 'en'
-  },
-  email_verified: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
-  },
-  two_factor_secret: {
-    type: DataTypes.STRING(255),
-    allowNull: true
-  },
-  two_factor_enabled: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
-  },
-  profile_image: {
-    type: DataTypes.STRING(500),
-    allowNull: true
-  },
-  oauth_provider: {
-    type: DataTypes.STRING(50),
-    allowNull: true
-  },
-  oauth_id: {
-    type: DataTypes.STRING(255),
-    allowNull: true
-  },
-  trial_expires_at: {
-    type: DataTypes.DATE,
-    allowNull: true
-  }
-});
-
-const SocialAccount = sequelize.define('SocialAccount', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
-  },
-  user_id: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: User,
-      key: 'id'
-    }
-  },
-  platform: {
-    type: DataTypes.ENUM('facebook', 'youtube', 'instagram', 'tiktok', 'wechat', 'messenger', 'telegram', 'snapchat', 'pinterest', 'twitter', 'whatsapp'),
-    allowNull: false
-  },
-  handle: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
-  access_token: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  refresh_token: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  expires_at: {
-    type: DataTypes.DATE,
-    allowNull: true
-  }
-});
-
-const Contact = sequelize.define('Contact', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
-  },
-  user_id: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: User,
-      key: 'id'
-    }
-  },
-  first_name: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
-  last_name: {
-    type: DataTypes.STRING(100),
-    allowNull: true
-  },
-  nickname: {
-    type: DataTypes.STRING(100),
-    allowNull: true
-  },
-  organization: {
-    type: DataTypes.STRING(200),
-    allowNull: true
-  },
-  job_title: {
-    type: DataTypes.STRING(200),
-    allowNull: true
-  },
-  phones: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  emails: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  addresses: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  social_profiles: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  instant_messages: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  urls: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  dates: {
-    type: DataTypes.JSON,
-    allowNull: true
-  },
-  notes: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  profile_image: {
-    type: DataTypes.STRING(500),
-    allowNull: true
-  }
-});
-
-const ContactSubmission = sequelize.define('ContactSubmission', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
-  },
-  name: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
-  },
-  subject: {
-    type: DataTypes.STRING(200),
-    allowNull: false
-  },
-  message: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  language: {
-    type: DataTypes.STRING(5),
-    defaultValue: 'en'
-  },
-  status: {
-    type: DataTypes.ENUM('new', 'read', 'replied'),
-    defaultValue: 'new'
-  }
-});
+// Database Models moved to ./models
 
 // Passport strategies - Only initialize if credentials are provided
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
@@ -365,10 +135,10 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
         callbackURL: "/auth/google/callback"
     }, async (accessToken, refreshToken, profile, done) => {
         try {
-            let user = await User.findOne({ where: { oauth_id: profile.id, oauth_provider: 'google' } });
+            let user = await db.User.findOne({ where: { oauth_id: profile.id, oauth_provider: 'google' } });
             
             if (!user) {
-                user = await User.create({
+                user = await db.User.create({
                     email: profile.emails[0].value,
                     oauth_provider: 'google',
                     oauth_id: profile.id,
@@ -393,7 +163,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findByPk(id);
+    const user = await db.User.findByPk(id);
     done(null, user);
   } catch (error) {
     done(error, null);
@@ -407,6 +177,10 @@ const isAuthenticated = (req, res, next) => {
   }
   res.redirect('/login');
 };
+
+// API routes
+app.use('/relations', isAuthenticated, relationRoutes);
+app.use('/groups', isAuthenticated, groupRoutes);
 
 // Routes
 app.get('/', (req, res) => {
@@ -514,10 +288,10 @@ app.post('/auth/register', [
     const { username, email, password } = req.body;
     
     // Check if user already exists
-    const existingUser = await User.findOne({ 
-      where: { 
-        [Sequelize.Op.or]: [{ email }, { username }] 
-      } 
+    const existingUser = await db.User.findOne({
+      where: {
+        [Op.or]: [{ email }, { username }]
+      }
     });
     
     if (existingUser) {
@@ -528,7 +302,7 @@ app.post('/auth/register', [
     const password_hash = await bcrypt.hash(password, 12);
     
     // Create user
-    const user = await User.create({
+    const user = await db.User.create({
       username,
       email,
       password_hash,
@@ -562,7 +336,7 @@ app.post('/auth/login', [
   try {
     const { email, password } = req.body;
     
-    const user = await User.findOne({ where: { email } });
+    const user = await db.User.findOne({ where: { email } });
     
     if (!user || !user.password_hash) {
       return res.redirect('/login?error=invalid_credentials');
@@ -602,7 +376,7 @@ app.post('/contact', [
   try {
     const { name, email, subject, message } = req.body;
     
-    await ContactSubmission.create({
+    await db.ContactSubmission.create({
       name,
       email,
       subject,
@@ -651,13 +425,13 @@ app.use((req, res) => {
 async function startServer() {
   try {
     console.log('🔌 Testing database connection...');
-    await sequelize.authenticate();
+    await db.sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
     
     // Use safer sync strategy to avoid datetime issues
     try {
       console.log('📊 Synchronizing database schema (safe mode)...');
-      await sequelize.sync({ alter: false }); // Don't alter existing tables
+      await db.sequelize.sync({ alter: false }); // Don't alter existing tables
       console.log('✅ Database schema synchronized successfully.');
     } catch (syncError) {
       console.log('⚠️  Schema sync failed. This might be due to existing invalid datetime values.');
@@ -673,10 +447,10 @@ async function startServer() {
       let userCount = 0;
       let tableCount = 0;
       try {
-        const users = await User.count();
+        const users = await db.User.count();
         userCount = users;
         
-        const [tables] = await sequelize.query("SHOW TABLES");
+        const [tables] = await db.sequelize.query("SHOW TABLES");
         tableCount = tables.length;
       } catch (error) {
         // Ignore errors for display purposes
